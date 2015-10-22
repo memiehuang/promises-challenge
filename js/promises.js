@@ -1,5 +1,20 @@
 $(document).ready(function() {
 
+  $("#fetch-weather").click(function(){
+    var loc = [];
+    $.getJSON('http://www.ip-api.com/json/').then(function(location){ //get first file about current location
+        loc = location;
+        //console.log(loc);
+        var currWeather;
+        //get weather
+         $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat='+ loc.lat + '&lon='+ loc.lon + '&appid=bd82977b86bf27fb59a04b61b657fb6f').then(function(weather){
+             currWeather = weather;
+             //console.log(weather);
+             $("#weather-results").text(currWeather.weather[0].description);
+        });
+    });
+  });
+
   /*
   In this challenge, you'll learn how to use promises to make independent requests as well as how to make dependendent requests
 
